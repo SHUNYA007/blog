@@ -1,5 +1,6 @@
 {%extends "main_website/base.html"%}
 {%block content%}
+	<h1 class="mb-3"> Posts by {{view.kwargs.username}} ({{page_obj.paginator.count}})</h1>
 	{%for post in posts%}
 		<article class="media content-section">
 		  <img class="rounded-circle article-img" src="{{post.author.profile.pro_image.url}}">
@@ -10,9 +11,7 @@
 		    </div>
 		    <h2><a class="article-title" href="{%url 'post-detail' post.id%}">{{ post.title }}</a></h2>
 		    <p class="article-content">{{ post.content }}</p>
-		    <p><img src="{{post.con_image.url}}"></p>
-			<p><img src="{{post.con_image2.url}}"></p> 
-		</div>
+		  </div>
 		</article>
 	{%endfor%}
 	{%if is_paginated%}

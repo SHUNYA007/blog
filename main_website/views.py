@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import Post
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.models import User
-
+from .forms import PostForm
 def home(request):
 	context={
 			'posts':Post.objects.all()
@@ -33,14 +33,14 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin,CreateView):
 	model=Post
 	fields=['title','content']
-
+	#form_class=PostForm
 	def form_valid(self, form):
 		form.instance.author=self.request.user
 		return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 	model=Post
-	fields=['title','content']
+	fields=['title','content','con_image']
 
 	def form_valid(self, form):
 		form.instance.author=self.request.user
